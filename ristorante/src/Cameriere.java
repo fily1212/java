@@ -5,7 +5,7 @@ public class Cameriere extends Personale{
     }
 
     public void inserisciOrdine(Tavolo tavolo, Piatto piatto){
-
-
+        Ordine ordine = new Ordine(piatto,tavolo,this);
+        getCoda().aggiungiOrdine(ordine);
     }
 }

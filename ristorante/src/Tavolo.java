@@ -8,4 +8,9 @@ public class Tavolo {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Tavolo "+ id ;
+    }
 }
