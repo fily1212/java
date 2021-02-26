@@ -16,6 +16,11 @@ public class Coda {
         this.nextDaOrdinare++;
     }
 
+    public void evadiOrdine(){
+        if(nextDaCucinare < nextDaOrdinare)
+            this.ordini[this.nextDaCucinare++].setEvaso();
+    }
+
     @Override
     public String toString() {
 
