@@ -20,4 +20,8 @@ public abstract class List {
 
     // true se la lista è ordinata
     public abstract boolean ordinata(int next);
+
+    // per i forti: true se è ordinata crescente o descrescente, false altrimenti
+    // public abstract boolean ordinataCrescenteDecrescente(....)
+    // suggerimento: io definirei una enumerazione
 }
