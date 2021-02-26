@@ -32,6 +32,10 @@ public class Ordine {
         return stato;
     }
 
+    public void setEvaso(){
+        this.stato = Stato.EVASO;
+    }
+
     @Override
     public String toString() {
         return piatto +
