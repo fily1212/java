@@ -16,7 +16,7 @@ public class Node extends List{
 
     @Override
     public List addLast(int x) {
-        this.next = next.addLast(x);
+        this.next = this.next.addLast(x);
         return this;
     }
 
