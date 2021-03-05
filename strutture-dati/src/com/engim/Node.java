@@ -26,4 +26,30 @@ public class Node extends List{
         else
             this.next.addLast2(x);
     }
+
+    @Override
+    public List add(int x, int i) {
+        if(i==0) {
+            this.next = new Node(this.value, this.next);
+            this.value = x;
+        }else{
+            this.next = this.next.add(x, i-1);
+        }
+        return this;
+    }
+
+    @Override
+    public List remove(int x) {
+        if(this.value == x)
+            return this.next.remove(x);
+        else {
+            this.next = this.next.remove(x);
+            return this;
+        }
+    }
+
+    @Override
+    public int length() {
+        return 1 + this.next.length();
+    }
 }

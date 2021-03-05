@@ -4,6 +4,7 @@ public abstract class List {
 
     public abstract List addLast(int x);
     public abstract void addLast2(int x);
+
     public abstract List add(int x, int i);
 
     // rimuove tutte le occorrenze di x
@@ -24,4 +25,10 @@ public abstract class List {
     // per i forti: true se è ordinata crescente o descrescente, false altrimenti
     // public abstract boolean ordinataCrescenteDecrescente(....)
     // suggerimento: io definirei una enumerazione
+
+    // ritorna la lunghezza della lista
+    public abstract int length();
+
+    // ritorna il numero all'indice i
+    public abstract int get(int i);
 }
