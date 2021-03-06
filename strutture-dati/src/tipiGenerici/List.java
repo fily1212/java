@@ -1,26 +1,26 @@
-package com.engim;
+package tipiGenerici;
 
-public abstract class List {
+public abstract class List<T> {
 
-    public abstract List addLast(int x);
-    public abstract void addLast2(int x);
+    public abstract List addLast(T x);
+    public abstract void addLast2(T x);
 
-    public abstract List add(int x, int i);
+    public abstract List add(T x, int i);
 
     // rimuove tutte le occorrenze di x
-    public abstract List remove(int x);
+    public abstract List remove(T x);
 
     // rimuove l'elemento in posizione i
-//    public abstract List removeAtIndex(int i);
+//    public abstract List removeAtIndex(T i);
 
     // raddoppia tutti gli elementi della lista
-  //  public abstract List doppio();
+ //   public abstract List doppio();
 
     // true se tutti gli elementi sono pari
- //   public abstract boolean pari();
+  //  public abstract boolean pari();
 
     // true se la lista è ordinata
- //   public abstract boolean ordinata(int next);
+  //  public abstract boolean ordinata(int next);
 
     // per i forti: true se è ordinata crescente o descrescente, false altrimenti
     // public abstract boolean ordinataCrescenteDecrescente(....)
@@ -30,5 +30,5 @@ public abstract class List {
     public abstract int length();
 
     // ritorna il numero all'indice i
- //   public abstract int get(int i);
+  //  public abstract int get(T i);
 }

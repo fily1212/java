@@ -2,7 +2,7 @@ package com.engim;
 
 import java.awt.*;
 
-public abstract class Forma {
+public abstract class Forma implements Drawable {
 
-    public abstract void disegna(Graphics g, int x, int y);
+//    public abstract void disegna(Graphics g, int x, int y);
 }
