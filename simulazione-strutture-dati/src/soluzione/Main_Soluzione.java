@@ -13,9 +13,20 @@ public class Main_Soluzione {
         System.out.println("Inverti l'array");
 
         List reverse = new Nil();
-        for(List list = l; l instanceof Node; l = l.getNext()){
+
+                /*
+        List list = l;
+        while(!(list instanceof Nil)){
+            reverse = reverse.add(((Node)list).getValue(),0);
+//            reverse = new Node(((Node)list).getValue(),reverse);
+            list = list.getNext();
+        }*/
+
+
+
+        for(List iteratore = l; iteratore instanceof Node; iteratore = iteratore.getNext()){
             // Scrivere un ciclo per invertire la lista l
-            String value = ((Node) l).getValue();
+            String value = ((Node) iteratore).getValue();
             reverse = new Node(value,reverse);
         }
         System.out.println(reverse);
