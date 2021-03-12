@@ -14,7 +14,10 @@ public class Calcolatrice {
                double d = Double.parseDouble(elem);
                stack.push(d);
             } catch (Exception e){
-
+                switch (elem){
+                    case "+":
+                        somma(stack);
+                }
             }
 
         }
@@ -23,6 +26,13 @@ public class Calcolatrice {
     }
 
     public static void somma(Stack<Double> stack){
+        if(stack.size() > 1){
+            Double a = stack.pop();
+            Double b = stack.pop();
+            stack.push(a+b);
+        }else{
+            System.out.println("Errore nella sintassi");
+        }
 
 
     }
