@@ -17,6 +17,19 @@ public class Calcolatrice {
                 switch (elem){
                     case "+":
                         somma(stack);
+                        break;
+                    case "-":
+                        differenza(stack);
+                        break;
+                    case "*":
+                        moltiplicazione(stack);
+                        break;
+                    case "/":
+                        divisione(stack);
+                        break;
+                    default:
+                        System.out.println("Errore");
+                        System.exit(0);
                 }
             }
 
@@ -33,8 +46,33 @@ public class Calcolatrice {
         }else{
             System.out.println("Errore nella sintassi");
         }
-
-
+    }
+    public static void differenza(Stack<Double> stack){
+        if(stack.size() > 1){
+            Double a = stack.pop();
+            Double b = stack.pop();
+            stack.push(b - a);
+        }else{
+            System.out.println("Errore nella sintassi");
+        }
+    }
+    public static void moltiplicazione(Stack<Double> stack){
+        if(stack.size() > 1){
+            Double a = stack.pop();
+            Double b = stack.pop();
+            stack.push(a * b);
+        }else{
+            System.out.println("Errore nella sintassi");
+        }
+    }
+    public static void divisione(Stack<Double> stack){
+        if(stack.size() > 1){
+            Double a = stack.pop();
+            Double b = stack.pop();
+            stack.push(b / a);
+        }else{
+            System.out.println("Errore nella sintassi");
+        }
     }
 
 
