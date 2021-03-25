@@ -1,9 +1,25 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
 
 public class EsempioFileBinario {
+
+    public static void inserisciRilevamento(RandomAccessFile raf, Scanner tastiera){
+        System.out.println("Inserisci il codice della città");
+        String citta = tastiera.nextLine();
+        System.out.println("Inserisci i metri senza la virgola");
+        int metri = Integer.parseInt(tastiera.nextLine());
+        Rilevamenti rilevamenti = new Rilevamenti(metri,citta);
+        try {
+            rilevamenti.write(raf);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static void main(String[] args) {
 
         RandomAccessFile raf = null;
@@ -22,6 +38,7 @@ public class EsempioFileBinario {
             int scelta = Integer.parseInt(tastiera.nextLine());
             switch (scelta){
                 case 1:
+                    inserisciRilevamento(raf, tastiera);
                     break;
                 case 2:
                     break;

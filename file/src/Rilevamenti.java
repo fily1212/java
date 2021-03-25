@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 public class Rilevamenti {
 
     private int metri;
@@ -8,6 +11,10 @@ public class Rilevamenti {
         this.nome = nome;
     }
 
+    public void write(RandomAccessFile raf) throws IOException {
+        raf.writeChars(nome);
+        raf.writeInt(metri);
+    }
 
 
 }
