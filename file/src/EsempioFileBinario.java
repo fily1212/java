@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class EsempioFileBinario {
 
+    public static int RECORD_SIZE = 10;
+
     public static void inserisciRilevamento(RandomAccessFile raf, Scanner tastiera){
         System.out.println("Inserisci il codice della città");
         String citta = tastiera.nextLine();
@@ -19,6 +21,16 @@ public class EsempioFileBinario {
         }
     }
 
+    public static void leggiRilevamenti(RandomAccessFile raf){
+        try {
+            raf.seek(0);
+            while(raf.getFilePointer() <= raf.length() - RECORD_SIZE){
+                System.out.println(Rilevamenti.read(raf));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -27,8 +39,11 @@ public class EsempioFileBinario {
         try{
             File f = new File("prova.dat");
             raf = new RandomAccessFile(f, "rw");
+            raf.seek(raf.length());
 
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
             e.printStackTrace();
         }
         Scanner tastiera = new Scanner(System.in);
@@ -41,6 +56,7 @@ public class EsempioFileBinario {
                     inserisciRilevamento(raf, tastiera);
                     break;
                 case 2:
+                    leggiRilevamenti(raf);
                     break;
                 case 3:
                     break;
