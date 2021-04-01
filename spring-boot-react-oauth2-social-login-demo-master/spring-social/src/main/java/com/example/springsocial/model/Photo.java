@@ -1,22 +1,34 @@
 package com.example.springsocial.model;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
+
+@Entity
 public class Photo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="owner", referencedColumnName="id")
     private User owner;
 
     private byte[] picture;
 
     private String description;
 
+
+    @OneToMany(mappedBy = "photo", cascade = ALL)
     private List<PhotoLike> photoLikes;
 
+    @OneToMany(mappedBy = "photo", cascade = ALL)
     private List<Comment> comments;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     public Long getId() {
