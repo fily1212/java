@@ -17,6 +17,7 @@ public class Photo {
     @JoinColumn(name="owner", referencedColumnName="id")
     private User owner;
 
+    @Lob
     private byte[] picture;
 
     private String description;
