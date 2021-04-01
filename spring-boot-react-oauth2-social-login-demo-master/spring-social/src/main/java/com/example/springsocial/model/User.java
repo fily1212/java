@@ -6,6 +6,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
+
 @Entity
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
@@ -41,6 +43,7 @@ public class User {
     private String bio;
 
 
+    @OneToMany(mappedBy = "owner", cascade = ALL)
     private List<Photo> photos;
 
     public String getBio() {
