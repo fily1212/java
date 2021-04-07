@@ -9,6 +9,8 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class Post {
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
