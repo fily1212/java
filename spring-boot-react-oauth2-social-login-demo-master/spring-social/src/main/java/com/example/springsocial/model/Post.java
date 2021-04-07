@@ -17,8 +17,6 @@ public class Post {
     @JoinColumn(name="owner", referencedColumnName="id")
     private User owner;
 
-    @Lob
-    private byte[] picture;
 
     private String description;
 
@@ -31,6 +29,10 @@ public class Post {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="photo", referencedColumnName="id")
+    private Photo photo;
 
     public Long getId() {
         return id;
@@ -48,12 +50,20 @@ public class Post {
         this.owner = owner;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public List<PostLike> getPostLikes() {
+        return postLikes;
     }
 
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
+    public void setPostLikes(List<PostLike> postLikes) {
+        this.postLikes = postLikes;
+    }
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 
     public String getDescription() {

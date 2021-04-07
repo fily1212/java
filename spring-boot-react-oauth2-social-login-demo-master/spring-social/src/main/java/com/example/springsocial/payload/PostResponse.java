@@ -13,7 +13,6 @@ public class PostResponse extends Post {
         setId(post.getId());
         setOwner(post.getOwner());
         setPhotoLikes(post.getPhotoLikes());
-        setPicture(post.getPicture());
     }
 
 }
