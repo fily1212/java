@@ -15,8 +15,8 @@ public class Comment {
     private User owner;
 
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="photo", referencedColumnName="id")
-    private Photo photo;
+    @JoinColumn(name="post", referencedColumnName="id")
+    private Post post;
 
     private String text;
 
@@ -40,12 +40,12 @@ public class Comment {
         this.owner = owner;
     }
 
-    public Photo getPhoto() {
-        return photo;
+    public Post getPhoto() {
+        return post;
     }
 
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public void setPhoto(Post post) {
+        this.post = post;
     }
 
     public String getText() {

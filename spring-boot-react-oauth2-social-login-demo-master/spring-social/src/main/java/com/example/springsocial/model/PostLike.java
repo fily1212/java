@@ -1,13 +1,10 @@
 package com.example.springsocial.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 
 @Entity
 //@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class PhotoLike {
+public class PostLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +15,8 @@ public class PhotoLike {
     private User owner;
 
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="photo", referencedColumnName="id")
-    private Photo photo;
+    @JoinColumn(name="post", referencedColumnName="id")
+    private Post post;
 
     public Long getId() {
         return id;
@@ -37,11 +34,11 @@ public class PhotoLike {
         this.owner = owner;
     }
 
-    public Photo getPhoto() {
-        return photo;
+    public Post getPhoto() {
+        return post;
     }
 
-    public void setPhoto(Photo photo) {
-        this.photo = photo;
+    public void setPhoto(Post post) {
+        this.post = post;
     }
 }

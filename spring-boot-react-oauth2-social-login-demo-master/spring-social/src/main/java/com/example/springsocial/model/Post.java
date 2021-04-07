@@ -7,7 +7,7 @@ import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 
 @Entity
-public class Photo {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,10 @@ public class Photo {
     private String description;
 
 
-    @OneToMany(mappedBy = "photo", cascade = ALL)
-    private List<PhotoLike> photoLikes;
+    @OneToMany(mappedBy = "post", cascade = ALL)
+    private List<PostLike> postLikes;
 
-    @OneToMany(mappedBy = "photo", cascade = ALL)
+    @OneToMany(mappedBy = "post", cascade = ALL)
     private List<Comment> comments;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -64,12 +64,12 @@ public class Photo {
         this.description = description;
     }
 
-    public List<PhotoLike> getPhotoLikes() {
-        return photoLikes;
+    public List<PostLike> getPhotoLikes() {
+        return postLikes;
     }
 
-    public void setPhotoLikes(List<PhotoLike> photoLikes) {
-        this.photoLikes = photoLikes;
+    public void setPhotoLikes(List<PostLike> postLikes) {
+        this.postLikes = postLikes;
     }
 
     public List<Comment> getComments() {

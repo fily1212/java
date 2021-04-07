@@ -44,7 +44,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "owner", cascade = ALL)
-    private List<Photo> photos;
+    private List<Post> posts;
 
     public String getBio() {
         return bio;
