@@ -6,17 +6,17 @@ import com.example.springsocial.model.Post;
 import com.example.springsocial.model.User;
 import com.example.springsocial.payload.PostAddRequest;
 import com.example.springsocial.payload.PostResponse;
+import com.example.springsocial.repository.PhotoRepository;
 import com.example.springsocial.repository.PostRepository;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.CurrentUser;
 import com.example.springsocial.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +29,9 @@ public class PostController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PhotoRepository photoRepository;
 
     @GetMapping("/post/all")
 //    @PreAuthorize("hasRole('USER')")
@@ -54,7 +57,12 @@ public class PostController {
         post.setDate(new Date());
         post.setPostLikes(new ArrayList<>());
         post.setDescription(postAddRequest.getDescription());
-        post.setPhoto(new Photo());
+
+        Photo photo = new Photo();
+
+        photo.setOwner(currentUsers);
+
+        photoRepository.save(photo);
 
         postRepository.save(post);
 
@@ -63,4 +71,21 @@ public class PostController {
 
     }
 
-}
+    @PostMapping("/post/photo/add")
+    public Long addPhoto(@CurrentUser UserPrincipal userPrincipal,  @RequestParam("file") MultipartFile file) {
+
+        User currentUsers = userRepository.findById(userPrincipal.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Users", "id", userPrincipal.getId()));
+
+        Photo photo = new Photo();
+        photo.setOwner(currentUsers);
+        try {
+            photo.setPicture(file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return photoRepository.save(photo).getId();
+
+    }
+
+    }
