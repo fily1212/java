@@ -58,11 +58,12 @@ public class PostController {
         post.setPostLikes(new ArrayList<>());
         post.setDescription(postAddRequest.getDescription());
 
-        Photo photo = new Photo();
+        Photo photo = photoRepository.findById(postAddRequest.getIdPhoto())
+                .orElseThrow(() -> new ResourceNotFoundException("Photo", "id", postAddRequest.getIdPhoto()));
 
         photo.setOwner(currentUsers);
 
-        photoRepository.save(photo);
+        post.setPhoto(photo);
 
         postRepository.save(post);
 
