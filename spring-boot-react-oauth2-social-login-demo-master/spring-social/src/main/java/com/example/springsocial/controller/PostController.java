@@ -14,6 +14,11 @@ import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.CurrentUser;
 import com.example.springsocial.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,7 +48,7 @@ public class PostController {
     public List<PostResponse> getPosts() {
         List<PostResponse> postResponses = new ArrayList<>();
         List<Post> posts = postRepository.findAll();
-        for (Post p: posts ) {
+        for (Post p : posts) {
             PostResponse postResponse = new PostResponse(p);
             postResponses.add(postResponse);
         }
@@ -51,14 +56,14 @@ public class PostController {
     }
 
     @GetMapping("/post/add/like/{id}")
-    public boolean addPostLike(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long id){
+    public boolean addPostLike(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long id) {
 
         User currentUsers = userRepository.findById(userPrincipal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("post", "id", id));
         boolean response = false;
-        if(! postLikeRepository.existsByOwnerAndPost(currentUsers,post)){
+        if (!postLikeRepository.existsByOwnerAndPost(currentUsers, post)) {
             response = true;
             PostLike postLike = new PostLike();
             postLike.setOwner(currentUsers);
@@ -73,9 +78,8 @@ public class PostController {
     }
 
 
-
     @PostMapping("/post/add")
-    public PostResponse addPost(@CurrentUser UserPrincipal userPrincipal, @RequestBody PostAddRequest postAddRequest){
+    public PostResponse addPost(@CurrentUser UserPrincipal userPrincipal, @RequestBody PostAddRequest postAddRequest) {
 
         User currentUsers = userRepository.findById(userPrincipal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
@@ -102,7 +106,7 @@ public class PostController {
     }
 
     @PostMapping("/post/photo/add")
-    public Long addPhoto(@CurrentUser UserPrincipal userPrincipal,  @RequestParam("file") MultipartFile file) {
+    public Long addPhoto(@CurrentUser UserPrincipal userPrincipal, @RequestParam("file") MultipartFile file) {
 
         User currentUsers = userRepository.findById(userPrincipal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Users", "id", userPrincipal.getId()));
@@ -118,4 +122,16 @@ public class PostController {
 
     }
 
+    @GetMapping("post/photo/{id}")
+    public ResponseEntity<Resource> getPhoto(@PathVariable Long id) {
+
+        Photo photo = photoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Photo", "id", id));
+
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "1.png" + "\"")
+                .body(new ByteArrayResource(photo.getPicture()));
+
+
     }
+}
