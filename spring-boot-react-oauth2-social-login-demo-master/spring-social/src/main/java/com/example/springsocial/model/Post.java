@@ -11,8 +11,6 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 public class Post {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -77,14 +75,6 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<PostLike> getPhotoLikes() {
-        return postLikes;
-    }
-
-    public void setPhotoLikes(List<PostLike> postLikes) {
-        this.postLikes = postLikes;
     }
 
     public List<Comment> getComments() {

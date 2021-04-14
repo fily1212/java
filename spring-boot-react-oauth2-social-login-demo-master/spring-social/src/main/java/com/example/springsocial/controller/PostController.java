@@ -3,16 +3,17 @@ package com.example.springsocial.controller;
 import com.example.springsocial.exception.ResourceNotFoundException;
 import com.example.springsocial.model.Photo;
 import com.example.springsocial.model.Post;
+import com.example.springsocial.model.PostLike;
 import com.example.springsocial.model.User;
 import com.example.springsocial.payload.PostAddRequest;
 import com.example.springsocial.payload.PostResponse;
 import com.example.springsocial.repository.PhotoRepository;
+import com.example.springsocial.repository.PostLikeRepository;
 import com.example.springsocial.repository.PostRepository;
 import com.example.springsocial.repository.UserRepository;
 import com.example.springsocial.security.CurrentUser;
 import com.example.springsocial.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +34,10 @@ public class PostController {
     @Autowired
     private PhotoRepository photoRepository;
 
+    @Autowired
+    private PostLikeRepository postLikeRepository;
+
+
     @GetMapping("/post/all")
 //    @PreAuthorize("hasRole('USER')")
     public List<PostResponse> getPosts() {
@@ -44,6 +49,30 @@ public class PostController {
         }
         return postResponses;
     }
+
+    @GetMapping("/post/add/like/{id}")
+    public boolean addPostLike(@CurrentUser UserPrincipal userPrincipal, @PathVariable Long id){
+
+        User currentUsers = userRepository.findById(userPrincipal.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("post", "id", id));
+        boolean response = false;
+        if(! postLikeRepository.existsByOwnerAndPost(currentUsers,post)){
+            response = true;
+            PostLike postLike = new PostLike();
+            postLike.setOwner(currentUsers);
+            postLike.setPost(post);
+            postLikeRepository.save(postLike);
+            post.getPostLikes().add(postLike);
+            postRepository.save(post);
+        }
+
+        return response;
+
+    }
+
+
 
     @PostMapping("/post/add")
     public PostResponse addPost(@CurrentUser UserPrincipal userPrincipal, @RequestBody PostAddRequest postAddRequest){

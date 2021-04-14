@@ -14,7 +14,7 @@ public class PostResponse extends Post {
         setDescription(post.getDescription());
         setId(post.getId());
         setOwner(post.getOwner());
-        setPhotoLikes(post.getPhotoLikes());
+        setPostLikes(post.getPostLikes());
         setPhoto(post.getPhoto());
         idPhoto = post.getPhoto().getId();
     }
