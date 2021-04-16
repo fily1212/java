@@ -49,3 +49,11 @@ export function signup(signupRequest) {
         body: JSON.stringify(signupRequest)
     });
 }
+
+
+export function getPosts() {
+    return request({
+        url: API_BASE_URL + "/post/all",
+        method: 'GET',
+    });
+}
